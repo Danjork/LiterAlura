@@ -3,9 +3,10 @@ package com.alurachange.literalura.service;
 import com.alurachange.literalura.model.Autor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface IAutor extends JpaRepository<Autor, Long> {
 
     Autor findByNombreContainsIgnoreCase(String nombre);

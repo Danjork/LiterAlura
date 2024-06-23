@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class LiteraluraApplication implements CommandLineRunner {
-	
+
 	@Autowired
 	private ILibro libroRepository;
 
@@ -24,7 +24,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Principal principal = new Principal();
+		Principal principal = new Principal(libroRepository, autorRepository);
 		principal.muestraMenu();
 	}
 }

@@ -5,12 +5,14 @@ import com.alurachange.literalura.model.Datos;
 import com.alurachange.literalura.model.Libro;
 import com.alurachange.literalura.service.*;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+@Component
 public class Principal {
     Scanner teclado = new Scanner(System.in);
     private static final String URL_BASE = "https://gutendex.com/books/";
@@ -23,8 +25,8 @@ public class Principal {
     public Principal() {
     }
 
-    public Principal(ILibro repository, IAutor autorRepository) {
-        this.libroRepository = repository;
+    public Principal(ILibro libroRepository, IAutor autorRepository) {
+        this.libroRepository = libroRepository;//falto agregar libro
         this.autorRepository = autorRepository;
     }
 
@@ -48,11 +50,8 @@ public class Principal {
             Autor autor = autorRepository.findByNombreContainsIgnoreCase(libroEncontrado.get().getAutor().getNombre());
 
             if (autor == null) {
-                // Si el autor no existe, créalo y asígnalo al libro
-                Autor nuevoAutor = libroEncontrado.get().getAutor();
-                //nuevoAutor.setNombre(nombreAutor);
 
-                //me retorna el autor con el id, entonces si paso el autor al libro con el id, al guardarlo no me duplicara el autor!!!!
+                Autor nuevoAutor = libroEncontrado.get().getAutor();
                 autor = autorRepository.save(nuevoAutor);
             }
 
@@ -63,7 +62,7 @@ public class Principal {
                 libroRepository.save(libro);
                 System.out.println(libro);
             } catch (DataIntegrityViolationException ex) {
-                // Manejar la excepción de restricción única
+
                 System.out.println("El libro con este título ya existe en la base de datos.");
             }
 
@@ -152,17 +151,17 @@ public class Principal {
 
         while(opcion !=0){
             var menu = """
-                    ---------------------------------------------
-                                 MENU PRINCIPAL
-                    ---------------------------------------------
-                       1. BUSCAR LIBROS POR TITULO
-                       2. LISTAR LIBROS REGISTRADOS
-                       3. LISTAR AUTORES REGISTRADOS
-                       4. LISTAR AUTORES VIVOS EN UN AÑO
-                       5. LISTAR LIBROS POR IDIOMA
-                       6. LISTAR EL TOP 10 LIBROS MAS DESCARGADOS
-                       0. SALIR
-                    ----------------------------------------------
+                    |----------------------------------------------|
+                    |             MENU PRINCIPAL                   |
+                    |----------------------------------------------|
+                    |   1. BUSCAR LIBROS POR TITULO                |
+                    |   2. LISTAR LIBROS REGISTRADOS               |
+                    |   3. LISTAR AUTORES REGISTRADOS              |
+                    |   4. LISTAR AUTORES VIVOS EN UN AÑO          |
+                    |   5. LISTAR LIBROS POR IDIOMA                |
+                    |   6. LISTAR EL TOP 10 LIBROS MAS DESCARGADOS |
+                    |   0. SALIR                                   |
+                    |----------------------------------------------|
                     """;
 
             System.out.println(menu);
