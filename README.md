@@ -55,6 +55,7 @@ Ejecuta la aplicación:
  
 
   ## Contribución
+![badge literalura](https://github.com/Danjork/literalura/assets/40806603/2ed1004f-6c05-450f-84d2-6b3d848091c9)
 
 ## Autores ✒️
 
